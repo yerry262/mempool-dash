@@ -6,6 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Mempool-Dash is a cryptocurrency mempool visualization dashboard built with Next.js. It displays real-time transaction data, fee estimates, and mempool statistics.
 
+> **Project status: early scaffold.** The build tooling (`package.json`,
+> Next.js config, tsconfig, Tailwind config) is not yet present. The npm
+> commands listed under "Common Commands" will not run until that tooling is
+> added. The only current source is `src/lib/api/mempool.ts` and
+> `src/types/index.ts`; other `src/` directories are empty placeholders.
+
 ## Tech Stack
 
 - **Framework**: Next.js 14+ (App Router)
