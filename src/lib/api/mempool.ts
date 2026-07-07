@@ -1,23 +1,41 @@
 // Mempool API Client
+// Wraps the mempool.space REST API: https://mempool.space/docs/api
+
+import type { Block, FeeEstimate, MempoolInfo, RecentTransaction } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mempool.space/api';
 
-export async function getMempoolInfo() {
-  const response = await fetch(`${API_URL}/mempool`);
-  return response.json();
+export class MempoolApiError extends Error {
+  constructor(
+    public readonly status: number,
+    public readonly url: string,
+  ) {
+    super(`Mempool API request failed with status ${status}: ${url}`);
+    this.name = 'MempoolApiError';
+  }
 }
 
-export async function getFeeEstimates() {
-  const response = await fetch(`${API_URL}/v1/fees/recommended`);
-  return response.json();
+async function fetchJson<T>(path: string): Promise<T> {
+  const url = `${API_URL}${path}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new MempoolApiError(response.status, url);
+  }
+  return response.json() as Promise<T>;
 }
 
-export async function getRecentTransactions() {
-  const response = await fetch(`${API_URL}/mempool/recent`);
-  return response.json();
+export function getMempoolInfo(): Promise<MempoolInfo> {
+  return fetchJson<MempoolInfo>('/mempool');
 }
 
-export async function getBlocks() {
-  const response = await fetch(`${API_URL}/v1/blocks`);
-  return response.json();
+export function getFeeEstimates(): Promise<FeeEstimate> {
+  return fetchJson<FeeEstimate>('/v1/fees/recommended');
+}
+
+export function getRecentTransactions(): Promise<RecentTransaction[]> {
+  return fetchJson<RecentTransaction[]>('/mempool/recent');
+}
+
+export function getBlocks(): Promise<Block[]> {
+  return fetchJson<Block[]>('/v1/blocks');
 }

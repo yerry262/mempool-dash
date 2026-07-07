@@ -1,9 +1,11 @@
 // Mempool API Types
+// Shapes mirror the mempool.space REST API: https://mempool.space/docs/api
 
 export interface MempoolInfo {
   count: number;
   vsize: number;
   total_fee: number;
+  /** Pairs of [feeRate (sat/vB), vsize] buckets, highest fee rate first. */
   fee_histogram: [number, number][];
 }
 
@@ -15,7 +17,7 @@ export interface FeeEstimate {
   minimumFee: number;
 }
 
-export interface Transaction {
+export interface RecentTransaction {
   txid: string;
   fee: number;
   vsize: number;
@@ -29,4 +31,11 @@ export interface Block {
   tx_count: number;
   size: number;
   weight: number;
+  extras?: {
+    medianFee?: number;
+    totalFees?: number;
+    pool?: {
+      name: string;
+    };
+  };
 }
