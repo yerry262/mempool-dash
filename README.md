@@ -2,19 +2,13 @@
 
 A real-time Bitcoin mempool visualization dashboard built with Next.js.
 
-> **Project status: early scaffold.** The build tooling is not yet present —
-> there is no `package.json`, Next.js config, or app code. The npm scripts
-> documented below (`npm install`, `npm run dev`, `npm run build`,
-> `npm run lint`, `npm run type-check`) will not run until that tooling is
-> added. The only current source is the API client in `src/lib/api/` and the
-> type definitions in `src/types/`.
-
 ## Features
 
-- Live mempool statistics and transaction count
-- Fee estimation visualization
-- Recent transactions feed
-- Block explorer integration
+- Live mempool statistics (transaction count, size, pending fees), refreshed every 10 seconds
+- Fee histogram showing pending vsize by fee-rate bucket
+- Recommended fee estimates for five confirmation tiers
+- Recent transactions feed with links to mempool.space
+- Latest blocks with transaction counts and timestamps
 - Responsive design for desktop and mobile
 
 ## Getting Started

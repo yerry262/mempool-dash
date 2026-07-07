@@ -1,0 +1,11 @@
+export function LoadingState({ label = 'Loading…' }: { label?: string }) {
+  return <p className="py-6 text-center text-sm text-slate-500">{label}</p>;
+}
+
+export function ErrorState({ message }: { message: string }) {
+  return (
+    <p className="py-6 text-center text-sm text-red-400" role="alert">
+      {message}
+    </p>
+  );
+}
