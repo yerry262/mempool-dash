@@ -84,7 +84,14 @@ export function FeeHistogramChart({ className }: { className?: string }) {
                 formatter={(value: number) => [`${value.toFixed(2)} MvB`, 'Pending vsize']}
                 labelFormatter={(label) => `${label} sat/vB`}
               />
-              <Bar dataKey="mvb" fill={BAR_COLOR} radius={[4, 4, 0, 0]} maxBarSize={48} />
+              {/* Animation off so bars don't replay on every poll refresh. */}
+              <Bar
+                dataKey="mvb"
+                fill={BAR_COLOR}
+                radius={[4, 4, 0, 0]}
+                maxBarSize={48}
+                isAnimationActive={false}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>
